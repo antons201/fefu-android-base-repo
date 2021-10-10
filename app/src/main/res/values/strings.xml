@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Activity Tracker</string>
+    <string name="welcome">welcome</string>
+    <string name="welcome_header">Пожалуй лучший фитнес трекер в ДВФУ</string>
+    <string name="welcome_subtext">Созданный студентами 2-ого курса</string>
+    <string name="welcome_registration">Зарегистрироваться</string>
+    <string name="welcome_login">Уже есть аккаунт?</string>
+    <string name="registration">registration</string>
+    <string name="registration_header">Регистрация</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="registration_repeat_password">Повторите пароль</string>
+    <string name="registration_name">Имя или никнейм</string>
+    <string name="registration_sex">Пол</string>
+    <string name="registration_continue">Продолжить</string>
+    <string name="registration_agreement">Нажимая на кнопку, вы соглашаетесь с <a href="http://google.com/">политикой
+        конфиденциальности</a> и обработкой персональных данных, а также принимаете
+        <a href="http://google.com/">пользовательское соглашение</a></string>
+    <string name="description_login">login</string>
+    <string name="login_header">Вход</string>
+    <string-array name="sex">
+        <item>Мужской</item>
+        <item>Женский</item>
+        <item>Другое</item>
+    </string-array>
 </resources>
