@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_welcome_header"
         android:id="@+id/welcome_header"
@@ -23,9 +23,11 @@
         android:id="@+id/welcome_icon"
         android:contentDescription="@string/welcome"
 
-        app:layout_constraintTop_toBottomOf="@id/welcome_header"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline_header"
+        app:layout_constraintVertical_bias="0.7"/>
 
     <ImageView
         android:id="@+id/welcome_activity"
