@@ -10,26 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Activity">
         <activity
+            android:name=".activitytracking.ActivityTrackingActivity"
+            android:exported="true"
+            android:label="Activity">
+        </activity>
+        <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:label="Login">
-        </activity>
+            android:label="Login"></activity>
         <activity
             android:name=".RegistrationActivity"
             android:exported="true"
-            android:label="Registration">
-        </activity>
+            android:label="Registration"></activity>
         <activity
             android:name=".WelcomeActivity"
             android:exported="true"
             android:label="Welcome">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 
