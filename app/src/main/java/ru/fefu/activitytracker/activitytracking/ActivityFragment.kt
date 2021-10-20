@@ -52,4 +52,9 @@ class ActivityFragment : Fragment(R.layout.fragment_activity) {
         }.attach()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
