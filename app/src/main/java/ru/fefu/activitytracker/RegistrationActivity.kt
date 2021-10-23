@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageButton
 import android.widget.TextView
+import com.google.android.material.button.MaterialButton
+import ru.fefu.activitytracker.activitytracking.ActivityTrackingActivity
 
 
 class RegistrationActivity : AppCompatActivity() {
@@ -30,5 +32,10 @@ class RegistrationActivity : AppCompatActivity() {
         val agreementView = findViewById<TextView>(R.id.registration_agreement)
         agreementView.setMovementMethod(LinkMovementMethod.getInstance())
 
+        val continueButton = findViewById<MaterialButton>(R.id.registration_continue)
+        continueButton.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
