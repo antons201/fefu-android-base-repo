@@ -10,18 +10,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Activity">
         <activity
+            android:name=".activitytracking.ActivityUsersDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activitytracking.ActivityMyDetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".activitytracking.ActivityTrackingActivity"
             android:exported="true"
-            android:label="Activity">
-        </activity>
+            android:label="Activity" />
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:label="Login"></activity>
+            android:label="Login" />
         <activity
             android:name=".RegistrationActivity"
             android:exported="true"
-            android:label="Registration"></activity>
+            android:label="Registration" />
         <activity
             android:name=".WelcomeActivity"
             android:exported="true"

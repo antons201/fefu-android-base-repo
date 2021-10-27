@@ -23,6 +23,19 @@
     <string name="profile">Профиль</string>
     <string name="my_activity">Моя активность</string>
     <string name="users_activity">Активность пользователей</string>
+    <string name="delete_string">Удалить</string>
+    <string name="share_string">Поделиться</string>
+    <string name="comment_string">Комментарий</string>
+    <string name="user_comment_string">Я бежал очень сильно, ты так не сможешь</string>
+    <string name="distance_string">14.32 км</string>
+    <string name="date_string">14 часов назад</string>
+    <string name="time_string">1 час 42 минуты</string>
+    <string name="start_string">Старт</string>
+    <string name="start_time_string">14:49</string>
+    <string name="vertical_line_string">|</string>
+    <string name="stop_string">Финиш</string>
+    <string name="stop_time_string">16:31</string>
+    <string name="user_name_string">\@van_darkholme</string>
     <string-array name="sex">
         <item>Мужской</item>
         <item>Женский</item>

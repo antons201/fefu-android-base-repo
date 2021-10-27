@@ -1,23 +1,48 @@
 package ru.fefu.activitytracker.activitytracking
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import ru.fefu.activitytracker.R
+import ru.fefu.activitytracker.WelcomeActivity
+import ru.fefu.activitytracker.databinding.FragmentActivityUsersBinding
 
-class ActivityUsersFragment : Fragment() {
+class ActivityUsersFragment : Fragment(R.layout.fragment_activity_users) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var _binding: FragmentActivityUsersBinding? = null
+    private val binding: FragmentActivityUsersBinding
+        get() = _binding!!
+
+    private val activityUsersCardsRepository = ActivityUsersCardsRepository()
+
+    private val activityUsersCardListAdapter = ActivityUsersCardListAdapter(activityUsersCardsRepository.getActivityUsersCards())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_activity_users, container, false)
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+        _binding = view?.let { FragmentActivityUsersBinding.bind(it)}
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(binding.activityUsersCardsList) {
+            adapter = activityUsersCardListAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        activityUsersCardListAdapter.setItemClickListener {
+            val intent = Intent(context, ActivityUsersDetailsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     companion object {
@@ -28,5 +53,10 @@ class ActivityUsersFragment : Fragment() {
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
