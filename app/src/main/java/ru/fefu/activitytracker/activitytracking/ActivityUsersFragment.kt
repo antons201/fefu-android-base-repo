@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.fefu.activitytracker.R
-import ru.fefu.activitytracker.WelcomeActivity
 import ru.fefu.activitytracker.databinding.FragmentActivityUsersBinding
 
 class ActivityUsersFragment : Fragment(R.layout.fragment_activity_users) {
@@ -40,8 +39,24 @@ class ActivityUsersFragment : Fragment(R.layout.fragment_activity_users) {
         }
 
         activityUsersCardListAdapter.setItemClickListener {
-            val intent = Intent(context, ActivityUsersDetailsActivity::class.java)
-            startActivity(intent)
+            val fragmentManager = parentFragment?.parentFragmentManager
+
+            val currentFragment = fragmentManager?.findFragmentByTag(ActivityFragment.TAG)
+            val switchedFragment = fragmentManager?.findFragmentByTag(ActivityUsersDetailsFragment.TAG)
+
+
+            fragmentManager?.beginTransaction()?.apply {
+                if (currentFragment != null) {
+                    hide(currentFragment)
+                }
+                if (switchedFragment != null) {
+                    show(switchedFragment)
+                } else {
+                    add(R.id.activity_tracker, ActivityUsersDetailsFragment.newInstance(),
+                        ActivityUsersDetailsFragment.TAG)
+                }
+                commit()
+            }
         }
     }
 

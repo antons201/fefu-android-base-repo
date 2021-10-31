@@ -20,7 +20,9 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
 
     private val activityMyCardListAdapter = ActivityMyCardListAdapter(activityMyCardsRepository.getActivityMyCards())
 
+
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -31,6 +33,7 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
     }
 
     companion object {
+
         fun newInstance() : ActivityMyFragment {
             val bundle = Bundle()
             val fragment = ActivityMyFragment()
@@ -48,8 +51,24 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
         }
 
         activityMyCardListAdapter.setItemClickListener {
-            val intent = Intent(context, ActivityMyDetailsActivity::class.java)
-            startActivity(intent)
+
+            val fragmentManager = parentFragment?.parentFragmentManager
+
+            val currentFragment = fragmentManager?.findFragmentByTag(ActivityFragment.TAG)
+            val switchedFragment = fragmentManager?.findFragmentByTag(ActivityMyDetailsFragment.TAG)
+
+
+            fragmentManager?.beginTransaction()?.apply {
+                if (currentFragment != null) {
+                    hide(currentFragment)
+                }
+                if (switchedFragment != null) {
+                    show(switchedFragment)
+                } else {
+                    add(R.id.activity_tracker, ActivityMyDetailsFragment.newInstance(), ActivityMyDetailsFragment.TAG)
+                }
+                commit()
+            }
         }
 
     }

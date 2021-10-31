@@ -10,12 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Activity">
         <activity
-            android:name=".activitytracking.ActivityUsersDetailsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activitytracking.ActivityMyDetailsActivity"
-            android:exported="true" />
-        <activity
             android:name=".activitytracking.ActivityTrackingActivity"
             android:exported="true"
             android:label="Activity" />
