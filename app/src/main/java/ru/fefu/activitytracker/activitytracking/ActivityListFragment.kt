@@ -5,22 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.tabs.TabLayoutMediator
 import ru.fefu.activitytracker.R
-import ru.fefu.activitytracker.databinding.FragmentActivityBinding
+import ru.fefu.activitytracker.databinding.FragmentActivityListBinding
 
+class ActivityListFragment : Fragment(R.layout.fragment_activity_list) {
 
-class ActivityFragment : Fragment(R.layout.fragment_activity) {
-    private var _binding: FragmentActivityBinding? = null
-    private val binding: FragmentActivityBinding
+    private var _binding: FragmentActivityListBinding? = null
+    private val binding: FragmentActivityListBinding
         get() = _binding!!
 
     companion object {
 
-        const val TAG = "activity_fragment"
+        const val TAG = "activity_list_fragment"
 
-        fun newInstance() : ActivityFragment {
+        fun newInstance() : ActivityListFragment {
             val bundle = Bundle()
-            val fragment = ActivityFragment()
+            val fragment = ActivityListFragment()
             fragment.arguments = bundle
             return fragment
         }
@@ -33,7 +34,7 @@ class ActivityFragment : Fragment(R.layout.fragment_activity) {
     ): View? {
 
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        _binding = view?.let {FragmentActivityBinding.bind(it)}
+        _binding = view?.let { FragmentActivityListBinding.bind(it)}
 
         return view
     }
@@ -41,17 +42,18 @@ class ActivityFragment : Fragment(R.layout.fragment_activity) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null) {
-            childFragmentManager.beginTransaction().apply {
-                add(R.id.activity_info, ActivityListFragment.newInstance(), ActivityListFragment.TAG)
-                commit()
-            }
-        }
+        val adapter = ActivityListFragmentAdapter(this)
+        binding.viewPagerActivity.adapter = adapter
+        TabLayoutMediator(
+            binding.tabsActivity,
+            binding.viewPagerActivity
+        ) { tab, position ->
+            tab.text = if (position==0) "Моя" else "Пользователей"
+        }.attach()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

@@ -3,7 +3,7 @@ package ru.fefu.activitytracker.activitytracking
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ActivityFragmentAdapter(fragment: ActivityFragment) : FragmentStateAdapter(fragment) {
+class ActivityListFragmentAdapter(fragment: ActivityListFragment) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 2
 

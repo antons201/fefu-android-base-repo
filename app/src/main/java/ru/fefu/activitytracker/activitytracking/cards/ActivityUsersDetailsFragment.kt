@@ -45,7 +45,7 @@ class ActivityUsersDetailsFragment : Fragment(R.layout.fragment_users_details) {
 
         toolbar.setNavigationOnClickListener {
             val currentFragment = parentFragmentManager.findFragmentByTag(TAG)
-            val switchedFragment = parentFragmentManager.findFragmentByTag(ActivityFragment.TAG)
+            val switchedFragment = parentFragmentManager.findFragmentByTag(ActivityListFragment.TAG)
 
             parentFragmentManager.beginTransaction().apply {
                 if (currentFragment != null) {

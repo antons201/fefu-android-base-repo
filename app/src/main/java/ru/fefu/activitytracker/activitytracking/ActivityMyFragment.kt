@@ -1,6 +1,5 @@
 package ru.fefu.activitytracker.activitytracking
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,7 +53,7 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
 
             val fragmentManager = parentFragment?.parentFragmentManager
 
-            val currentFragment = fragmentManager?.findFragmentByTag(ActivityFragment.TAG)
+            val currentFragment = fragmentManager?.findFragmentByTag(ActivityListFragment.TAG)
             val switchedFragment = fragmentManager?.findFragmentByTag(ActivityMyDetailsFragment.TAG)
 
 
@@ -65,7 +64,7 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
                 if (switchedFragment != null) {
                     show(switchedFragment)
                 } else {
-                    add(R.id.activity_tracker, ActivityMyDetailsFragment.newInstance(), ActivityMyDetailsFragment.TAG)
+                    add(R.id.activity_info, ActivityMyDetailsFragment.newInstance(), ActivityMyDetailsFragment.TAG)
                 }
                 commit()
             }

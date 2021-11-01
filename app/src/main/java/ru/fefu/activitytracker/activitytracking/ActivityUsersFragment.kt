@@ -41,7 +41,7 @@ class ActivityUsersFragment : Fragment(R.layout.fragment_activity_users) {
         activityUsersCardListAdapter.setItemClickListener {
             val fragmentManager = parentFragment?.parentFragmentManager
 
-            val currentFragment = fragmentManager?.findFragmentByTag(ActivityFragment.TAG)
+            val currentFragment = fragmentManager?.findFragmentByTag(ActivityListFragment.TAG)
             val switchedFragment = fragmentManager?.findFragmentByTag(ActivityUsersDetailsFragment.TAG)
 
 
@@ -52,7 +52,7 @@ class ActivityUsersFragment : Fragment(R.layout.fragment_activity_users) {
                 if (switchedFragment != null) {
                     show(switchedFragment)
                 } else {
-                    add(R.id.activity_tracker, ActivityUsersDetailsFragment.newInstance(),
+                    add(R.id.activity_info, ActivityUsersDetailsFragment.newInstance(),
                         ActivityUsersDetailsFragment.TAG)
                 }
                 commit()
