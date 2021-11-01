@@ -44,18 +44,7 @@ class ActivityUsersDetailsFragment : Fragment(R.layout.fragment_users_details) {
         val toolbar = binding.activityUsersDetailsToolbar
 
         toolbar.setNavigationOnClickListener {
-            val currentFragment = parentFragmentManager.findFragmentByTag(TAG)
-            val switchedFragment = parentFragmentManager.findFragmentByTag(ActivityListFragment.TAG)
-
-            parentFragmentManager.beginTransaction().apply {
-                if (currentFragment != null) {
-                    hide(currentFragment)
-                }
-                if (switchedFragment != null) {
-                    show(switchedFragment)
-                }
-                commit()
-            }
+            parentFragmentManager.popBackStack()
         }
     }
 

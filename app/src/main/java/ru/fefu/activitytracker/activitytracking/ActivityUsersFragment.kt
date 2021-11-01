@@ -42,19 +42,14 @@ class ActivityUsersFragment : Fragment(R.layout.fragment_activity_users) {
             val fragmentManager = parentFragment?.parentFragmentManager
 
             val currentFragment = fragmentManager?.findFragmentByTag(ActivityListFragment.TAG)
-            val switchedFragment = fragmentManager?.findFragmentByTag(ActivityUsersDetailsFragment.TAG)
-
 
             fragmentManager?.beginTransaction()?.apply {
                 if (currentFragment != null) {
                     hide(currentFragment)
                 }
-                if (switchedFragment != null) {
-                    show(switchedFragment)
-                } else {
-                    add(R.id.activity_info, ActivityUsersDetailsFragment.newInstance(),
-                        ActivityUsersDetailsFragment.TAG)
-                }
+                add(R.id.activity_info, ActivityUsersDetailsFragment.newInstance(),
+                    ActivityUsersDetailsFragment.TAG)
+                addToBackStack(ActivityUsersDetailsFragment.TAG)
                 commit()
             }
         }

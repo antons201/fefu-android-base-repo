@@ -9,13 +9,12 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_users_details_toolbar"
         android:layout_width="match_parent"
-        app:navigationIcon="@drawable/ic_back"
         android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_back"
         app:title="Велосипед"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/user_name_activity_users_details"

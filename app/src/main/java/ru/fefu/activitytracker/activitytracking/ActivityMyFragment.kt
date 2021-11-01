@@ -54,18 +54,13 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
             val fragmentManager = parentFragment?.parentFragmentManager
 
             val currentFragment = fragmentManager?.findFragmentByTag(ActivityListFragment.TAG)
-            val switchedFragment = fragmentManager?.findFragmentByTag(ActivityMyDetailsFragment.TAG)
-
 
             fragmentManager?.beginTransaction()?.apply {
                 if (currentFragment != null) {
                     hide(currentFragment)
                 }
-                if (switchedFragment != null) {
-                    show(switchedFragment)
-                } else {
-                    add(R.id.activity_info, ActivityMyDetailsFragment.newInstance(), ActivityMyDetailsFragment.TAG)
-                }
+                add(R.id.activity_info, ActivityMyDetailsFragment.newInstance(), ActivityMyDetailsFragment.TAG)
+                addToBackStack(ActivityMyDetailsFragment.TAG)
                 commit()
             }
         }
