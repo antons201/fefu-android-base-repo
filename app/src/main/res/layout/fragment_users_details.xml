@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".activitytracking.ActivityUsersDetailsFragment">
+    tools:context=".activitytracking.activity.ActivityUsersDetailsFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_users_details_toolbar"
@@ -148,10 +148,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="24dp"
-        android:hint="@string/user_comment_string"
         app:layout_constraintTop_toBottomOf="@+id/start_activity_users_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:hintEnabled="false"
 
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -159,6 +159,7 @@
             android:id="@+id/comment_activity_my_edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:hint="@string/user_comment_string"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"

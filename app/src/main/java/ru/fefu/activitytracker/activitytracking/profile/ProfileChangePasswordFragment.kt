@@ -1,39 +1,37 @@
-package ru.fefu.activitytracker.activitytracking
+package ru.fefu.activitytracker.activitytracking.profile
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import ru.fefu.activitytracker.R
-import ru.fefu.activitytracker.databinding.FragmentUsersDetailsBinding
+import ru.fefu.activitytracker.databinding.FragmentProfileChangePasswordBinding
 
-class ActivityUsersDetailsFragment : Fragment(R.layout.fragment_users_details) {
 
-    private var _binding: FragmentUsersDetailsBinding? = null
-    private val binding: FragmentUsersDetailsBinding
+class ProfileChangePasswordFragment : Fragment(R.layout.fragment_profile_change_password) {
+    private var _binding: FragmentProfileChangePasswordBinding? = null
+    private val binding: FragmentProfileChangePasswordBinding
         get() = _binding!!
 
-
     companion object {
+        const val TAG = "profile_change_password_fragment"
 
-        const val TAG = "activity_users_details_fragment"
-
-        fun newInstance() : ActivityUsersDetailsFragment {
+        fun newInstance(): ProfileChangePasswordFragment {
             val bundle = Bundle()
-            val fragment = ActivityUsersDetailsFragment()
+            val fragment = ProfileChangePasswordFragment()
             fragment.arguments = bundle
             return fragment
         }
     }
 
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        _binding = view?.let { FragmentUsersDetailsBinding.bind(it)}
+        _binding = view?.let { FragmentProfileChangePasswordBinding.bind(it)}
 
         return view
     }
@@ -41,7 +39,7 @@ class ActivityUsersDetailsFragment : Fragment(R.layout.fragment_users_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toolbar = binding.activityUsersDetailsToolbar
+        val toolbar = binding.profileChangePasswordToolbar
 
         toolbar.setNavigationOnClickListener {
             parentFragmentManager.popBackStack()

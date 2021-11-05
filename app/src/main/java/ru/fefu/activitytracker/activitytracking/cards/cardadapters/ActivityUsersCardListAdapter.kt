@@ -1,11 +1,9 @@
 package ru.fefu.activitytracker.activitytracking
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.fefu.activitytracker.R
 
@@ -64,7 +62,6 @@ class ActivityUsersCardListAdapter (
             }
         }
 
-        @SuppressLint("SetText")
         fun bind(activityUsersCard: ActivityUsersCard) {
             distanceActivity.text = activityUsersCard.distance
             timeActivity.text = activityUsersCard.time
@@ -77,7 +74,6 @@ class ActivityUsersCardListAdapter (
     inner class ActivityPeriodListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val period: TextView = itemView.findViewById(R.id.period_activity)
 
-        @SuppressLint("SetText")
         fun bind(activityPeriod: ActivityPeriod) {
             period.text = activityPeriod.period
         }

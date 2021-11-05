@@ -1,4 +1,4 @@
-package ru.fefu.activitytracker.activitytracking
+package ru.fefu.activitytracker.activitytracking.activity
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -43,7 +43,10 @@ class ActivityFragment : Fragment(R.layout.fragment_activity) {
 
         if (savedInstanceState == null) {
             childFragmentManager.beginTransaction().apply {
-                add(R.id.activity_info, ActivityListFragment.newInstance(), ActivityListFragment.TAG)
+                add(R.id.activity_info,
+                    ActivityListFragment.newInstance(),
+                    ActivityListFragment.TAG
+                )
                 commit()
             }
         }
