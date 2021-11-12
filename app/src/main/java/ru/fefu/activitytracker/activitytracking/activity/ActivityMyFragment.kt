@@ -1,4 +1,4 @@
-package ru.fefu.activitytracker.activitytracking
+package ru.fefu.activitytracker.activitytracking.activity
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.fefu.activitytracker.R
+import ru.fefu.activitytracker.activitytracking.ActivityMyCardListAdapter
+import ru.fefu.activitytracker.activitytracking.ActivityMyCardsRepository
 import ru.fefu.activitytracker.databinding.FragmentActivityMyBinding
 
 class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
@@ -59,7 +61,10 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
                 if (currentFragment != null) {
                     hide(currentFragment)
                 }
-                add(R.id.activity_info, ActivityMyDetailsFragment.newInstance(), ActivityMyDetailsFragment.TAG)
+                add(R.id.activity_info,
+                    ActivityMyDetailsFragment.newInstance(),
+                    ActivityMyDetailsFragment.TAG
+                )
                 addToBackStack(ActivityMyDetailsFragment.TAG)
                 commit()
             }

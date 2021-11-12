@@ -9,7 +9,6 @@ import android.widget.AutoCompleteTextView
 import android.widget.ImageButton
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
-import ru.fefu.activitytracker.activitytracking.ActivityTrackingActivity
 
 
 class RegistrationActivity : AppCompatActivity() {

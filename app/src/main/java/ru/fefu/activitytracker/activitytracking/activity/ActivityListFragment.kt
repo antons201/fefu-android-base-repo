@@ -1,5 +1,6 @@
-package ru.fefu.activitytracker.activitytracking
+package ru.fefu.activitytracker.activitytracking.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.fefu.activitytracker.R
+import ru.fefu.activitytracker.activitytracking.train.TrainActivity
 import ru.fefu.activitytracker.databinding.FragmentActivityListBinding
 
 class ActivityListFragment : Fragment(R.layout.fragment_activity_list) {
@@ -50,6 +52,11 @@ class ActivityListFragment : Fragment(R.layout.fragment_activity_list) {
         ) { tab, position ->
             tab.text = if (position==0) "Моя" else "Пользователей"
         }.attach()
+
+        binding.newTrainButton.setOnClickListener{
+            val intent = Intent(context, TrainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {

@@ -1,4 +1,4 @@
-package ru.fefu.activitytracker.activitytracking
+package ru.fefu.activitytracker.activitytracking.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater

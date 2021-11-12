@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import com.google.android.material.button.MaterialButton
-import ru.fefu.activitytracker.activitytracking.ActivityTrackingActivity
+import ru.fefu.activitytracker.activitytracking.activity.ActivityTrackingActivity
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
