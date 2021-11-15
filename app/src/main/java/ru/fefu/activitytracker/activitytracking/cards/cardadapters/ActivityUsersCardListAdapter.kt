@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.fefu.activitytracker.R
+import ru.fefu.activitytracker.activitytracking.cards.utils.TimeUtils
 
 class ActivityUsersCardListAdapter (
     cards: List<Card>) : RecyclerView.Adapter<RecyclerView.ViewHolder> (){
 
-    private val mutableCards = cards.toMutableList()
+    val mutableCards = cards.toMutableList()
 
     private var itemClickListener: (Int) -> Unit = {}
 
@@ -64,9 +65,9 @@ class ActivityUsersCardListAdapter (
 
         fun bind(activityUsersCard: ActivityUsersCard) {
             distanceActivity.text = activityUsersCard.distance
-            timeActivity.text = activityUsersCard.time
-            sportTypeActivity.text = activityUsersCard.sport_type
-            dateActivity.text = activityUsersCard.date
+            timeActivity.text = TimeUtils.getDuration(activityUsersCard.start_time, activityUsersCard.stop_time)
+            sportTypeActivity.text = activityUsersCard.sport_type.type
+            dateActivity.text = TimeUtils.getSpentTime(activityUsersCard.stop_time)
             userNameActivity.text = activityUsersCard.user_name
         }
     }

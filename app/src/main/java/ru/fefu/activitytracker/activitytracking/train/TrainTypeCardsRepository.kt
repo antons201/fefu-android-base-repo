@@ -3,15 +3,15 @@ package ru.fefu.activitytracker.activitytracking.train
 class TrainTypeCardsRepository {
     private val cardsList = listOf(
         TrainTypeCard(
-            "Велосипед",
+            TrainTypes.CYCLING,
             true
         ),
         TrainTypeCard(
-            "Бег",
+            TrainTypes.RUNNING,
             false
         ),
         TrainTypeCard(
-            "Шаг",
+            TrainTypes.WALKING,
             false
         )
     )

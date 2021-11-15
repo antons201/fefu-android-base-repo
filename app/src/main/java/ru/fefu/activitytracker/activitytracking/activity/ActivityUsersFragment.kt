@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.fefu.activitytracker.R
+import ru.fefu.activitytracker.activitytracking.ActivityMyCard
+import ru.fefu.activitytracker.activitytracking.ActivityUsersCard
 import ru.fefu.activitytracker.activitytracking.ActivityUsersCardListAdapter
 import ru.fefu.activitytracker.activitytracking.ActivityUsersCardsRepository
 import ru.fefu.activitytracker.databinding.FragmentActivityUsersBinding
@@ -48,7 +50,9 @@ class ActivityUsersFragment : Fragment(R.layout.fragment_activity_users) {
                 if (currentFragment != null) {
                     hide(currentFragment)
                 }
-                add(R.id.activity_info, ActivityUsersDetailsFragment.newInstance(),
+                add(R.id.activity_info, ActivityUsersDetailsFragment.newInstance(
+                    (activityUsersCardListAdapter.mutableCards[it] as ActivityUsersCard).sport_type
+                ),
                     ActivityUsersDetailsFragment.TAG
                 )
                 addToBackStack(ActivityUsersDetailsFragment.TAG)

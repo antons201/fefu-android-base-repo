@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import ru.fefu.activitytracker.App
 import ru.fefu.activitytracker.R
+import ru.fefu.activitytracker.activitytracking.ActivityMyCard
 import ru.fefu.activitytracker.activitytracking.ActivityMyCardListAdapter
 import ru.fefu.activitytracker.activitytracking.ActivityMyCardsRepository
 import ru.fefu.activitytracker.databinding.FragmentActivityMyBinding
+import ru.fefu.activitytracker.database.ActivityMy
 
 class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
 
@@ -20,6 +23,8 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
     private val activityMyCardsRepository = ActivityMyCardsRepository()
 
     private val activityMyCardListAdapter = ActivityMyCardListAdapter(activityMyCardsRepository.getActivityMyCards())
+
+    private var countAdded : Int = 0
 
 
     override fun onCreateView(
@@ -62,7 +67,9 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
                     hide(currentFragment)
                 }
                 add(R.id.activity_info,
-                    ActivityMyDetailsFragment.newInstance(),
+                    ActivityMyDetailsFragment.newInstance(
+                        (activityMyCardListAdapter.mutableCards[it] as ActivityMyCard).sport_type
+                    ),
                     ActivityMyDetailsFragment.TAG
                 )
                 addToBackStack(ActivityMyDetailsFragment.TAG)
@@ -70,10 +77,31 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
             }
         }
 
+        App.INSTANCE.db.activityMyDao().getAll().observe(viewLifecycleOwner) {
+            addDBItems(activityMyCardListAdapter, it)
+        }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun addDBItems(adapter: ActivityMyCardListAdapter, dbList: List<ActivityMy>) {
+        if (dbList.isNotEmpty()) {
+            for (i in countAdded until dbList.size) {
+                adapter.mutableCards.add(
+                    ActivityMyCard(
+                        "14.32 км",
+                        dbList[i].start_time,
+                        dbList[i].end_time,
+                        dbList[i].sport_type
+                    )
+                )
+                countAdded++
+                adapter.notifyItemInserted(adapter.mutableCards.size - 1)
+            }
+        }
     }
 }

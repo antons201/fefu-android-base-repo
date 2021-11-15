@@ -1,5 +1,8 @@
 package ru.fefu.activitytracker.activitytracking
 
+import ru.fefu.activitytracker.activitytracking.train.TrainTypes
+import java.time.LocalDateTime
+
 class ActivityUsersCardsRepository {
 
     private val cardsList = listOf(
@@ -8,23 +11,23 @@ class ActivityUsersCardsRepository {
         ),
         ActivityUsersCard(
             "14.32 км",
-            "2 часа 46 минут",
-            "Серфинг",
-            "14 часов назад",
+            LocalDateTime.of(2021, 11, 13, 12, 0, 0),
+            LocalDateTime.of(2021, 11, 13, 14, 0, 0),
+            TrainTypes.RUNNING,
             "@van_darkholme"
         ),
         ActivityUsersCard(
             "228 м",
-            "14 часов 48 минут",
-            "Качели",
-            "14 часов назад",
+            LocalDateTime.of(2021, 11, 13, 12, 0, 0),
+            LocalDateTime.of(2021, 11, 13, 14, 0, 0),
+            TrainTypes.CYCLING,
             "@techniquepasha"
         ),
         ActivityUsersCard(
             "10 км",
-            "1 час 10 минут",
-            "Езда на кадилак",
-            "14 часов назад",
+            LocalDateTime.of(2021, 11, 13, 12, 0, 0),
+            LocalDateTime.of(2021, 11, 13, 14, 0, 0),
+            TrainTypes.WALKING,
             "@morgen_shtern"
         )
     )
