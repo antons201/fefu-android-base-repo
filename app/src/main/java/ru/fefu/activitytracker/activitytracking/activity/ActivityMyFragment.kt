@@ -78,7 +78,7 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
         }
 
         App.INSTANCE.db.activityMyDao().getAll().observe(viewLifecycleOwner) {
-            addDBItems(activityMyCardListAdapter, it)
+            addCardsToDB(it)
         }
 
     }
@@ -88,19 +88,19 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
         _binding = null
     }
 
-    private fun addDBItems(adapter: ActivityMyCardListAdapter, dbList: List<ActivityMy>) {
-        if (dbList.isNotEmpty()) {
-            for (i in countAdded until dbList.size) {
-                adapter.mutableCards.add(
+    private fun addCardsToDB(cardsList: List<ActivityMy>) {
+        if (cardsList.isNotEmpty()) {
+            for (i in countAdded until activityMyCardListAdapter.itemCount) {
+                activityMyCardListAdapter.mutableCards.add(
                     ActivityMyCard(
                         "14.32 км",
-                        dbList[i].start_time,
-                        dbList[i].end_time,
-                        dbList[i].sport_type
+                        cardsList[i].start_time,
+                        cardsList[i].end_time,
+                        cardsList[i].sport_type
                     )
                 )
                 countAdded++
-                adapter.notifyItemInserted(adapter.mutableCards.size - 1)
+                activityMyCardListAdapter.notifyItemInserted(activityMyCardListAdapter.itemCount - 1)
             }
         }
     }
