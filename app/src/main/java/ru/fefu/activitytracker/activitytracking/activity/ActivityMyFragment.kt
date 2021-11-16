@@ -90,7 +90,7 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
 
     private fun addCardsToDB(cardsList: List<ActivityMy>) {
         if (cardsList.isNotEmpty()) {
-            for (i in countAdded until activityMyCardListAdapter.itemCount) {
+            for (i in countAdded until cardsList.size) {
                 activityMyCardListAdapter.mutableCards.add(
                     ActivityMyCard(
                         "14.32 км",
@@ -100,7 +100,9 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
                     )
                 )
                 countAdded++
-                activityMyCardListAdapter.notifyItemInserted(activityMyCardListAdapter.itemCount - 1)
+                activityMyCardListAdapter.notifyItemInserted(
+                    activityMyCardListAdapter.itemCount - 1
+                )
             }
         }
     }
