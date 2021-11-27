@@ -50,6 +50,8 @@
     <string name="start_train">Начать</string>
     <string name="bicycle">Велосипед</string>
     <string name="train_time">00:01:46</string>
+    <string name="activity_welcome_head">Время потренить</string>
+    <string name="activity_welcome_text">Нажимай на кнопку ниже и начинаем трекать активность</string>
     <string-array name="sex">
         <item>Мужской</item>
         <item>Женский</item>

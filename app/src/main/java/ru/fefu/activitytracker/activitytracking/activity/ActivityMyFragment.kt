@@ -10,9 +10,11 @@ import ru.fefu.activitytracker.App
 import ru.fefu.activitytracker.R
 import ru.fefu.activitytracker.activitytracking.ActivityMyCard
 import ru.fefu.activitytracker.activitytracking.ActivityMyCardListAdapter
-import ru.fefu.activitytracker.activitytracking.ActivityMyCardsRepository
+import ru.fefu.activitytracker.activitytracking.ActivityPeriod
+import ru.fefu.activitytracker.activitytracking.Card
 import ru.fefu.activitytracker.databinding.FragmentActivityMyBinding
 import ru.fefu.activitytracker.database.ActivityMy
+import java.time.LocalDate
 
 class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
 
@@ -20,11 +22,7 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
     private val binding: FragmentActivityMyBinding
         get() = _binding!!
 
-    private val activityMyCardsRepository = ActivityMyCardsRepository()
-
-    private val activityMyCardListAdapter = ActivityMyCardListAdapter(activityMyCardsRepository.getActivityMyCards())
-
-    private var countAdded : Int = 0
+    private val activityMyCardListAdapter = ActivityMyCardListAdapter(mutableListOf())
 
 
     override fun onCreateView(
@@ -90,20 +88,49 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
 
     private fun addCardsToDB(cardsList: List<ActivityMy>) {
         if (cardsList.isNotEmpty()) {
-            for (i in countAdded until cardsList.size) {
-                activityMyCardListAdapter.mutableCards.add(
-                    ActivityMyCard(
-                        "14.32 км",
-                        cardsList[i].start_time,
-                        cardsList[i].end_time,
-                        cardsList[i].sport_type
+            binding.activityWelcomeHead.visibility = View.GONE
+            binding.activityWelcomeText.visibility = View.GONE
+
+            val activityList = mutableListOf<Card>()
+            val activityMap = mutableMapOf<LocalDate, MutableList<ActivityMyCard>>()
+
+            for (i in cardsList.indices) {
+                val card = ActivityMyCard(
+                    cardsList[i].id,
+                    "14.32 км",
+                    cardsList[i].start_time,
+                    cardsList[i].end_time,
+                    cardsList[i].sport_type
+                )
+
+                if (activityMap.containsKey(cardsList[i].start_time.toLocalDate())) {
+                    activityMap[cardsList[i].start_time.toLocalDate()]?.add(
+                        card
                     )
-                )
-                countAdded++
-                activityMyCardListAdapter.notifyItemInserted(
-                    activityMyCardListAdapter.itemCount - 1
-                )
+                } else {
+                    activityMap[cardsList[i].start_time.toLocalDate()] = mutableListOf(card)
+                }
             }
+
+            activityMap.toSortedMap()
+
+            for ((key, value) in activityMap) {
+                val period = key.dayOfMonth.toString() + "." + key.monthValue.toString() + "." +
+                        key.year.toString()
+                activityList.add(
+                    ActivityPeriod(period)
+                )
+                value.sortBy { it.start_time }
+                for (elem in value) {
+                    activityList.add(elem)
+                }
+            }
+
+            activityMyCardListAdapter.mutableCards = activityList
+            activityMyCardListAdapter.submitList(activityList)
+        } else {
+            binding.activityWelcomeHead.visibility = View.VISIBLE
+            binding.activityWelcomeText.visibility = View.VISIBLE
         }
     }
 }

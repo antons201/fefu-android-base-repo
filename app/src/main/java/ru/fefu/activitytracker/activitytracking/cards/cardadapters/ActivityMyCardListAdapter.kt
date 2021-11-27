@@ -1,17 +1,20 @@
 package ru.fefu.activitytracker.activitytracking
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
 import ru.fefu.activitytracker.R
 import ru.fefu.activitytracker.activitytracking.cards.utils.TimeUtils
 
 class ActivityMyCardListAdapter (
-    cards: List<Card>) : RecyclerView.Adapter<RecyclerView.ViewHolder> (){
+    cards: List<Card>) : ListAdapter<Card, RecyclerView.ViewHolder>(DiffCallback()){
 
-    val mutableCards = cards.toMutableList()
+    var mutableCards = cards
 
     private var itemClickListener: (Int) -> Unit = {}
 
@@ -20,6 +23,34 @@ class ActivityMyCardListAdapter (
         private const val ITEM_TYPE_PERIOD_CARD = 2
 
     }
+
+    private class DiffCallback : DiffUtil.ItemCallback<Card>() {
+
+        override fun areItemsTheSame(oldItem: Card, newItem: Card) : Boolean {
+            if (oldItem::class != newItem::class) {
+                return false
+            }
+            return when (oldItem) {
+                is ActivityMyCard -> oldItem.id == (newItem as ActivityMyCard).id
+                is ActivityPeriod -> oldItem.period == (newItem as ActivityPeriod).period
+                else -> false
+            }
+
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Card, newItem: Card): Boolean {
+            if (oldItem::class != newItem::class) {
+                return false
+            }
+            return when (oldItem) {
+                is ActivityMyCard -> oldItem == (newItem as ActivityMyCard)
+                is ActivityPeriod -> oldItem == (newItem as ActivityPeriod)
+                else -> false
+            }
+        }
+    }
+
 
     override fun getItemViewType(position: Int): Int =
         if (mutableCards[position]::class == ActivityMyCard::class) ITEM_TYPE_ACTIVITY_CARD
