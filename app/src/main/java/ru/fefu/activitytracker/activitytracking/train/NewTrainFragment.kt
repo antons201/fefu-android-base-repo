@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import ru.fefu.activitytracker.App
 import ru.fefu.activitytracker.R
+import ru.fefu.activitytracker.database.ActivityMy
 import ru.fefu.activitytracker.databinding.FragmentNewTrainBinding
+import java.time.LocalDateTime
 
 
 class NewTrainFragment : Fragment(R.layout.fragment_new_train) {
@@ -51,9 +54,20 @@ class NewTrainFragment : Fragment(R.layout.fragment_new_train) {
 
         binding.startTrainButton.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
-                replace(R.id.train_info, ActiveTrainFragment.newInstance(), ActiveTrainFragment.TAG)
+                replace(R.id.train_info, ActiveTrainFragment.newInstance(
+                    TrainTypes.values()[newTrainFragmentAdapter.getSelectedPosition()]
+                ), ActiveTrainFragment.TAG)
                 commit()
             }
+            App.INSTANCE.db.activityMyDao().insert(
+                ActivityMy(
+                    0,
+                    LocalDateTime.of(2021, 11, 13, 12, 0, 0),
+                    LocalDateTime.of(2021, 11, 13, 14, 0, 0),
+                    TrainTypes.values()[newTrainFragmentAdapter.getSelectedPosition()],
+                    listOf(Pair(123.0, 321.0), Pair(321.0, 123.0))
+                )
+            )
         }
     }
 

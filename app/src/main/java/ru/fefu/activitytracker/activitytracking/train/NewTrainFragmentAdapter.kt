@@ -29,7 +29,7 @@ class NewTrainFragmentAdapter (train_types: List<TrainTypeCard>) :
         private val trainType: TextView = itemView.findViewById(R.id.train_name)
 
         fun bind(trainTypeCard: TrainTypeCard) {
-            trainType.text = trainTypeCard.train_type
+            trainType.text = trainTypeCard.train_type.type
         }
 
         init {
@@ -45,4 +45,13 @@ class NewTrainFragmentAdapter (train_types: List<TrainTypeCard>) :
 
     override fun getItemCount(): Int =
         mutableCards.size
+
+    fun getSelectedPosition(): Int {
+        for (i in 0 until mutableCards.size) {
+            if (mutableCards[i].isSelected) {
+                return i
+            }
+        }
+        return 0
+    }
 }

@@ -16,9 +16,10 @@ class ActiveTrainFragment : Fragment(R.layout.fragment_active_train) {
     companion object {
         const val TAG = "active_train_fragment"
 
-        fun newInstance(): ActiveTrainFragment {
+        fun newInstance(sport_type: TrainTypes): ActiveTrainFragment {
             val bundle = Bundle()
             val fragment = ActiveTrainFragment()
+            bundle.putString("sport_type", sport_type.type)
             fragment.arguments = bundle
             return fragment
         }
@@ -36,6 +37,8 @@ class ActiveTrainFragment : Fragment(R.layout.fragment_active_train) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.trainType.text = arguments?.get("sport_type") as String
 
         binding.stopTrainButton.setOnClickListener{
             parentFragmentManager.beginTransaction().apply {

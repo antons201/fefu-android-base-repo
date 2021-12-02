@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.fefu.activitytracker.R
+import ru.fefu.activitytracker.activitytracking.train.TrainTypes
 import ru.fefu.activitytracker.databinding.FragmentMyDetailsBinding
 
 class ActivityMyDetailsFragment : Fragment(R.layout.fragment_my_details) {
@@ -18,9 +19,10 @@ class ActivityMyDetailsFragment : Fragment(R.layout.fragment_my_details) {
 
         const val TAG = "activity_my_details_fragment"
 
-        fun newInstance() : ActivityMyDetailsFragment {
+        fun newInstance(sport_type: TrainTypes) : ActivityMyDetailsFragment {
             val bundle = Bundle()
             val fragment = ActivityMyDetailsFragment()
+            bundle.putString("sport_type", sport_type.type)
             fragment.arguments = bundle
             return fragment
         }
@@ -45,6 +47,8 @@ class ActivityMyDetailsFragment : Fragment(R.layout.fragment_my_details) {
         toolbar.setNavigationOnClickListener {
             parentFragmentManager.popBackStack()
         }
+
+        toolbar.setTitle(arguments?.get("sport_type") as String)
     }
 
     override fun onDestroyView() {
