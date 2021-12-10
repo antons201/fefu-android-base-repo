@@ -19,10 +19,16 @@ class ActivityMyDetailsFragment : Fragment(R.layout.fragment_my_details) {
 
         const val TAG = "activity_my_details_fragment"
 
-        fun newInstance(sport_type: TrainTypes) : ActivityMyDetailsFragment {
+        fun newInstance(sport_type: TrainTypes, start_time: String, stop_time: String,
+                        distance: String, train_duration: String, spent_time: String) : ActivityMyDetailsFragment {
             val bundle = Bundle()
             val fragment = ActivityMyDetailsFragment()
             bundle.putString("sport_type", sport_type.type)
+            bundle.putString("start_time", start_time)
+            bundle.putString("stop_time", stop_time)
+            bundle.putString("distance", distance)
+            bundle.putString("train_duration", train_duration)
+            bundle.putString("spent_time", spent_time)
             fragment.arguments = bundle
             return fragment
         }
@@ -49,6 +55,11 @@ class ActivityMyDetailsFragment : Fragment(R.layout.fragment_my_details) {
         }
 
         toolbar.setTitle(arguments?.get("sport_type") as String)
+        binding.distanceActivityMyDetails.text = arguments?.get("distance") as String
+        binding.dateActivityMyDetails.text = arguments?.get("spent_time") as String
+        binding.timeActivityMyDetails.text = arguments?.get("train_duration") as String
+        binding.startTimeActivityMyDetails.text = arguments?.get("start_time") as String
+        binding.endTimeActivityMyDetails.text = arguments?.get("stop_time") as String
     }
 
     override fun onDestroyView() {

@@ -12,6 +12,7 @@ import ru.fefu.activitytracker.activitytracking.ActivityMyCard
 import ru.fefu.activitytracker.activitytracking.ActivityMyCardListAdapter
 import ru.fefu.activitytracker.activitytracking.ActivityPeriod
 import ru.fefu.activitytracker.activitytracking.Card
+import ru.fefu.activitytracker.activitytracking.cards.utils.TimeUtils
 import ru.fefu.activitytracker.databinding.FragmentActivityMyBinding
 import ru.fefu.activitytracker.database.ActivityMy
 import java.time.LocalDate
@@ -22,7 +23,7 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
     private val binding: FragmentActivityMyBinding
         get() = _binding!!
 
-    private val activityMyCardListAdapter = ActivityMyCardListAdapter(mutableListOf())
+    private val activityMyCardListAdapter = ActivityMyCardListAdapter()
 
 
     override fun onCreateView(
@@ -66,7 +67,21 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
                 }
                 add(R.id.activity_info,
                     ActivityMyDetailsFragment.newInstance(
-                        (activityMyCardListAdapter.mutableCards[it] as ActivityMyCard).sport_type
+                        (activityMyCardListAdapter.currentList[it] as ActivityMyCard).sport_type,
+                        TimeUtils.getTimeByStr(
+                            (activityMyCardListAdapter.currentList[it] as ActivityMyCard).start_time
+                        ),
+                        TimeUtils.getTimeByStr(
+                            (activityMyCardListAdapter.currentList[it] as ActivityMyCard).stop_time
+                        ),
+                        (activityMyCardListAdapter.currentList[it] as ActivityMyCard).distance,
+                        TimeUtils.getDuration(
+                            (activityMyCardListAdapter.currentList[it] as ActivityMyCard).start_time,
+                            (activityMyCardListAdapter.currentList[it] as ActivityMyCard).stop_time
+                        ),
+                        TimeUtils.getSpentTime(
+                            (activityMyCardListAdapter.currentList[it] as ActivityMyCard).stop_time
+                        )
                     ),
                     ActivityMyDetailsFragment.TAG
                 )
@@ -97,7 +112,7 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
             for (i in cardsList.indices) {
                 val card = ActivityMyCard(
                     cardsList[i].id,
-                    "14.32 км",
+                    cardsList[i].distance,
                     cardsList[i].start_time,
                     cardsList[i].end_time,
                     cardsList[i].sport_type
@@ -126,7 +141,6 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
                 }
             }
 
-            activityMyCardListAdapter.mutableCards = activityList
             activityMyCardListAdapter.submitList(activityList)
         } else {
             binding.activityWelcomeHead.visibility = View.VISIBLE
