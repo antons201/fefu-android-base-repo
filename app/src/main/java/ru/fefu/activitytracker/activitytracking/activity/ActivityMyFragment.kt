@@ -12,7 +12,8 @@ import ru.fefu.activitytracker.activitytracking.ActivityMyCard
 import ru.fefu.activitytracker.activitytracking.ActivityMyCardListAdapter
 import ru.fefu.activitytracker.activitytracking.ActivityPeriod
 import ru.fefu.activitytracker.activitytracking.Card
-import ru.fefu.activitytracker.activitytracking.cards.utils.TimeUtils
+import ru.fefu.activitytracker.activitytracking.cards.utils.DistanceUtils.getDistanceByString
+import ru.fefu.activitytracker.activitytracking.cards.utils.DistanceUtils.getDistanceUsingCoordinatesList
 import ru.fefu.activitytracker.databinding.FragmentActivityMyBinding
 import ru.fefu.activitytracker.database.ActivityMy
 import java.time.LocalDate
@@ -67,21 +68,7 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
                 }
                 add(R.id.activity_info,
                     ActivityMyDetailsFragment.newInstance(
-                        (activityMyCardListAdapter.currentList[it] as ActivityMyCard).sport_type,
-                        TimeUtils.getTimeByStr(
-                            (activityMyCardListAdapter.currentList[it] as ActivityMyCard).start_time
-                        ),
-                        TimeUtils.getTimeByStr(
-                            (activityMyCardListAdapter.currentList[it] as ActivityMyCard).stop_time
-                        ),
-                        (activityMyCardListAdapter.currentList[it] as ActivityMyCard).distance,
-                        TimeUtils.getDuration(
-                            (activityMyCardListAdapter.currentList[it] as ActivityMyCard).start_time,
-                            (activityMyCardListAdapter.currentList[it] as ActivityMyCard).stop_time
-                        ),
-                        TimeUtils.getSpentTime(
-                            (activityMyCardListAdapter.currentList[it] as ActivityMyCard).stop_time
-                        )
+                        (activityMyCardListAdapter.currentList[it] as ActivityMyCard).id
                     ),
                     ActivityMyDetailsFragment.TAG
                 )
@@ -112,7 +99,9 @@ class ActivityMyFragment : Fragment (R.layout.fragment_activity_my) {
             for (i in cardsList.indices) {
                 val card = ActivityMyCard(
                     cardsList[i].id,
-                    cardsList[i].distance,
+                    getDistanceByString(
+                        getDistanceUsingCoordinatesList(cardsList[i].coordinates_list)
+                    ),
                     cardsList[i].start_time,
                     cardsList[i].end_time,
                     cardsList[i].sport_type

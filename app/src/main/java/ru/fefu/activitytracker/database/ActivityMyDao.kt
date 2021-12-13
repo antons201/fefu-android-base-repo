@@ -46,7 +46,4 @@ interface ActivityMyDao {
 
     @Query("UPDATE ActivityMy SET end_time=:endTime WHERE id=:id")
     fun updateEndTime(id: Int, endTime: LocalDateTime)
-
-    @Query("UPDATE ActivityMy SET distance=:distance WHERE id=:id")
-    fun updateDistance(id: Int, distance: String)
 }

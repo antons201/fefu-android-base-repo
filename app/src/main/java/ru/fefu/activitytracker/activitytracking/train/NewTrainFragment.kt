@@ -105,8 +105,7 @@ class NewTrainFragment : Fragment(R.layout.fragment_new_train) {
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 TrainTypes.values()[newTrainFragmentAdapter.getSelectedPosition()],
-                listOf(),
-                "0 м."
+                listOf()
             )
         ).toInt()
         parentFragmentManager.beginTransaction().apply {

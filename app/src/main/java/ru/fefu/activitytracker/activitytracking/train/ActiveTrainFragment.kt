@@ -17,6 +17,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import ru.fefu.activitytracker.App
 import ru.fefu.activitytracker.R
 import ru.fefu.activitytracker.activitytracking.cards.utils.DistanceUtils.getDistanceByString
+import ru.fefu.activitytracker.activitytracking.cards.utils.DistanceUtils.getDistanceUsingCoordinatesList
 import ru.fefu.activitytracker.databinding.FragmentActiveTrainBinding
 import java.time.LocalDateTime
 
@@ -78,6 +79,9 @@ class ActiveTrainFragment : Fragment(R.layout.fragment_active_train) {
             val cancelIntent = Intent(requireContext(), TrainForegroundService::class.java).apply {
                 action = TrainForegroundService.ACTION_CANCEL
             }
+
+            cancelIntent.putExtra("activity_id", arguments?.get("id") as Int)
+
             requireActivity().startService(cancelIntent)
 
             requireActivity().finish()
@@ -119,18 +123,25 @@ class ActiveTrainFragment : Fragment(R.layout.fragment_active_train) {
 
         var restore: Boolean = arguments?.get("restore") as Boolean
 
+        var distance = 0.0
+
         App.INSTANCE.db.activityMyDao().getLiveData(arguments?.get("id") as Int)
             .observe(viewLifecycleOwner) {
+                if (it.coordinates_list.isNotEmpty() && !restore) {
+                    val lastCoordinate = it.coordinates_list.last()
+                    polyline.addPoint(GeoPoint(lastCoordinate.first, lastCoordinate.second))
+                    binding.trainDistance.text = getDistanceByString(
+                        TrainForegroundService.distance
+                    )
+                }
                 if (it.coordinates_list.isNotEmpty() && restore) {
                     for (coordinate in it.coordinates_list) {
                         polyline.addPoint(GeoPoint(coordinate.first, coordinate.second))
                     }
+                    binding.trainDistance.text = getDistanceByString(
+                        getDistanceUsingCoordinatesList(it.coordinates_list)
+                    )
                     restore = false
-                }
-                if (it.coordinates_list.isNotEmpty() && !restore) {
-                    val lastCoordinate = it.coordinates_list.last()
-                    polyline.addPoint(GeoPoint(lastCoordinate.first, lastCoordinate.second))
-                    binding.trainDistance.text = getDistanceByString(TrainForegroundService.distance)
                 }
             }
 

@@ -19,6 +19,7 @@ import com.google.android.gms.location.LocationServices
 import ru.fefu.activitytracker.App
 import ru.fefu.activitytracker.R
 import ru.fefu.activitytracker.activitytracking.cards.utils.DistanceUtils.getDistanceByString
+import ru.fefu.activitytracker.activitytracking.cards.utils.DistanceUtils.getDistanceUsingCoordinates
 import java.time.LocalDateTime
 
 class TrainForegroundService : Service() {
@@ -61,10 +62,9 @@ class TrainForegroundService : Service() {
 
         if (intent?.action == ACTION_CANCEL) {
 
+            activityId = intent.getIntExtra("activity_id", activityId)
+
             App.INSTANCE.db.activityMyDao().updateEndTime(activityId, LocalDateTime.now())
-            App.INSTANCE.db.activityMyDao().updateDistance(
-                activityId,
-                getDistanceByString(distance))
             App.INSTANCE.db.activityMyDao().updateFinished(activityId, true)
 
             distance = 0.0
@@ -133,7 +133,7 @@ class TrainForegroundService : Service() {
             .setContentIntent(pendingIntent)
             .addAction(R.drawable.ic_baseline_stop, "Stop", cancelPendingIntent)
             .build()
-        startForeground(1, notification)
+        startForeground(activityId, notification)
     }
 
     private fun createChannel() {
@@ -152,23 +152,16 @@ class TrainForegroundService : Service() {
         override fun onLocationResult(result: LocationResult?) {
             val lastLocation = result?.lastLocation ?: return
 
-            val newCoordinates = Pair(lastLocation.latitude, lastLocation.longitude)
-            coordinates.add(newCoordinates)
+            val newCoordinate = Pair(lastLocation.latitude, lastLocation.longitude)
+            coordinates.add(newCoordinate)
 
             App.INSTANCE.db.activityMyDao().updateCoordinatesList(activityId, coordinates)
 
             if (coordinates.size > 1) {
-                val oldCoordinates = coordinates[coordinates.lastIndex - 1]
-
-                val currentLocation = Location("CurrentLocation")
-                currentLocation.latitude = newCoordinates.first
-                currentLocation.longitude = newCoordinates.second
-
-                val prevLocation = Location("PrevLocation")
-                prevLocation.latitude = oldCoordinates.first
-                prevLocation.longitude = oldCoordinates.second
-
-                distance += currentLocation.distanceTo(prevLocation)
+                distance += getDistanceUsingCoordinates(
+                    coordinates[coordinates.lastIndex - 1],
+                    newCoordinate
+                )
             }
         }
     }
