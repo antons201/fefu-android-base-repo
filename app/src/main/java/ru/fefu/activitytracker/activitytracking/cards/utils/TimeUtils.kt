@@ -2,6 +2,7 @@ package ru.fefu.activitytracker.activitytracking.cards.utils
 
 import java.time.Duration
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 object TimeUtils {
     fun getDuration(start_time : LocalDateTime, stop_time : LocalDateTime) : String {
@@ -16,4 +17,9 @@ object TimeUtils {
 
         return "${Duration.between(stop_time, current_time).abs().toHours().toInt()} ч. назад"
     }
-}
+
+    fun getTimeByStr(time: LocalDateTime) : String {
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+        return time.format(formatter)
+    }
+ }

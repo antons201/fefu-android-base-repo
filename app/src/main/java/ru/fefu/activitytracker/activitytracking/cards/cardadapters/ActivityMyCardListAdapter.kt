@@ -11,10 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import ru.fefu.activitytracker.R
 import ru.fefu.activitytracker.activitytracking.cards.utils.TimeUtils
 
-class ActivityMyCardListAdapter (
-    cards: List<Card>) : ListAdapter<Card, RecyclerView.ViewHolder>(DiffCallback()){
-
-    var mutableCards = cards
+class ActivityMyCardListAdapter () : ListAdapter<Card, RecyclerView.ViewHolder>(DiffCallback()){
 
     private var itemClickListener: (Int) -> Unit = {}
 
@@ -53,7 +50,7 @@ class ActivityMyCardListAdapter (
 
 
     override fun getItemViewType(position: Int): Int =
-        if (mutableCards[position]::class == ActivityMyCard::class) ITEM_TYPE_ACTIVITY_CARD
+        if (currentList[position]::class == ActivityMyCard::class) ITEM_TYPE_ACTIVITY_CARD
         else ITEM_TYPE_PERIOD_CARD
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -70,9 +67,9 @@ class ActivityMyCardListAdapter (
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == ITEM_TYPE_ACTIVITY_CARD) {
-            (holder as ActivityMyCardListViewHolder).bind(mutableCards[position] as ActivityMyCard)
+            (holder as ActivityMyCardListViewHolder).bind(currentList[position] as ActivityMyCard)
         } else {
-            (holder as ActivityPeriodListViewHolder).bind(mutableCards[position] as ActivityPeriod)
+            (holder as ActivityPeriodListViewHolder).bind(currentList[position] as ActivityPeriod)
         }
     }
 
@@ -108,7 +105,4 @@ class ActivityMyCardListAdapter (
             period.text = activityPeriod.period
         }
     }
-
-    override fun getItemCount(): Int =
-        mutableCards.size
 }

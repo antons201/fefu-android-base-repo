@@ -30,10 +30,10 @@
         android:paddingStart="32sp"
         android:paddingEnd="32sp"
         android:layout_marginTop="24dp"
-        android:text="@string/distance_string"
         app:layout_constraintTop_toBottomOf="@id/activity_my_details_toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="0 км"/>
 
     <TextView
         android:id="@+id/date_activity_my_details"
@@ -44,10 +44,10 @@
         android:paddingStart="32sp"
         android:paddingEnd="32sp"
         android:layout_marginTop="4dp"
-        android:text="@string/date_string"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/distance_activity_my_details" />
+        app:layout_constraintTop_toBottomOf="@id/distance_activity_my_details"
+        tools:text="0 ч. назад"/>
 
     <TextView
         android:id="@+id/time_activity_my_details"
@@ -60,9 +60,9 @@
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:layout_marginTop="24dp"
-        android:text="@string/time_string"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_activity_my_details" />
+        app:layout_constraintTop_toBottomOf="@id/date_activity_my_details"
+        tools:text="0 ч. 0 м."/>
 
     <TextView
         android:id="@+id/start_activity_my_details"
@@ -87,9 +87,9 @@
         android:paddingStart="4dp"
         android:paddingEnd="16dp"
         android:layout_marginTop="4dp"
-        android:text="@string/start_time_string"
         app:layout_constraintStart_toEndOf="@id/start_activity_my_details"
-        app:layout_constraintTop_toBottomOf="@id/time_activity_my_details" />
+        app:layout_constraintTop_toBottomOf="@id/time_activity_my_details"
+        tools:text="00:00"/>
 
     <TextView
         android:id="@+id/line_activity_my_details"
@@ -125,9 +125,9 @@
         android:paddingEnd="16dp"
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/stop_time_string"
         app:layout_constraintStart_toEndOf="@id/end_activity_my_details"
-        app:layout_constraintTop_toBottomOf="@id/time_activity_my_details" />
+        app:layout_constraintTop_toBottomOf="@id/time_activity_my_details"
+        tools:text="00:00"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/comment_activity_my"
